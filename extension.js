@@ -111,11 +111,30 @@ export default class AccentColorExtension extends Extension {
     _onAccentColorChanged() {
         // When the accent color changes, get the new color and update the icon theme
         let accentColor = this._settings.get_string(ACCENT_COLOR);
-        this._setIconTheme(accentColor);
+        const theme = this.settingsSchema.get_string(ICON_THEME);
+        if (theme.includes("Papirus")) {
+            this._setPapirusFolderColor(accentColor, theme);
+        } else {
+            this._setIconTheme(accentColor);
+        }
+    }
+    
+    async _setPapirusFolderColor(color, theme) {
+        switch (color) {
+            case 'purple':
+                color = "violet";
+                break;
+             case 'slate':
+                color = "bluegrey";
+                break;
+            default:
+                break;
+        }
+        GLib.spawn_command_line_async('sudo papirus-folders -C ' + color + ' --theme ' + theme);
     }
 
     async _setIconTheme(color) {
-        if (color) {
+        if (color) {              
             let iconTheme = `Adwaita-${color}`;
 
             const { found } = getVariant(iconTheme);
