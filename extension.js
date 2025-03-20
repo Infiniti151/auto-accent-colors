@@ -134,7 +134,7 @@ export default class AccentColorExtension extends Extension {
     }
 
     async _setIconTheme(color) {
-        if (color) {              
+        if (color) {
             let iconTheme = `Adwaita-${color}`;
 
             const { found } = getVariant(iconTheme);
