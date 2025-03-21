@@ -30,7 +30,9 @@ gnome-extensions install --force "auto-adwaita-colors@celiopy.zip"
 ## 🔵 Papirus Icon Theme
 In order to automatically change folder colors for [Papirus Icon Theme](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme):
 1. Install [Papirus Folders](https://github.com/PapirusDevelopmentTeam/papirus-folders) system-wide
-2. Remove password requirement for ```papirus-folders``` command by adding '<YOUR_USERNAME> ALL=(ALL) NOPASSWD: /usr/bin/papirus-folders' in ```sudo visudo```
+
+### If Papirus Icon Theme is installed system-wide
+Remove password requirement for ```papirus-folders``` command by adding '<YOUR_USERNAME> ALL=(ALL) NOPASSWD: /usr/bin/papirus-folders' in ```sudo visudo```
 
 ---
 

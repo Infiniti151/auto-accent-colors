@@ -80,8 +80,10 @@ export default class AccentColorExtension extends Extension {
 
     disable() {
         // Reset the icon-theme when the extension is disabled
-        this.settingsSchema.set_string(ICON_THEME, 'Adwaita');
-
+        if(!this.settingsSchema.get_string(ICON_THEME).includes("Papirus")){
+            this.settingsSchema.set_string(ICON_THEME, 'Adwaita');
+        }
+        
         // Disconnect the signal using the stored ID
         if (this._syncAccentColorId !== null) {
             this.settingsSchema.disconnect(this._syncAccentColor);
@@ -105,7 +107,6 @@ export default class AccentColorExtension extends Extension {
     _syncAccentColor() {
         // Sync settings between global schema and _settings
         this._settings.set_string(ACCENT_COLOR, this.settingsSchema.get_string(ACCENT_COLOR));
-        this._settings.set_string(ICON_THEME, this.settingsSchema.get_string(ICON_THEME));
     }
 
     _onAccentColorChanged() {
@@ -130,7 +131,12 @@ export default class AccentColorExtension extends Extension {
             default:
                 break;
         }
-        GLib.spawn_command_line_async('sudo papirus-folders -C ' + color + ' --theme ' + theme);
+        let localPathGTK = Gio.File.new_for_path(GLib.get_home_dir() + "/.icons/" + theme);
+        if(localPathGTK.query_exists(null)){
+            GLib.spawn_command_line_async('papirus-folders -C ' + color + ' --theme ' + theme);
+        } else {
+            GLib.spawn_command_line_async('sudo papirus-folders -C ' + color + ' --theme ' + theme);
+        }
     }
 
     async _setIconTheme(color) {
