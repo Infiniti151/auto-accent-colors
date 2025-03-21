@@ -1,4 +1,3 @@
-import St from 'gi://St';
 import Gio from 'gi://Gio';
 import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
@@ -106,6 +105,7 @@ export default class AccentColorExtension extends Extension {
     _syncAccentColor() {
         // Sync settings between global schema and _settings
         this._settings.set_string(ACCENT_COLOR, this.settingsSchema.get_string(ACCENT_COLOR));
+        this._settings.set_string(ICON_THEME, this.settingsSchema.get_string(ICON_THEME));
     }
 
     _onAccentColorChanged() {
