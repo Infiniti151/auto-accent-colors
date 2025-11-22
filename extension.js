@@ -74,8 +74,8 @@ export default class AccentColorExtension extends Extension {
         this._onAccentColorChanged();
 
         // Start the periodic update check
-        this._startUpdateCheck();
-        this._checkForUpdates();
+        //this._startUpdateCheck();
+        //this._checkForUpdates();
     }
 
     disable() {
@@ -118,6 +118,29 @@ export default class AccentColorExtension extends Extension {
         } else {
             this._setIconTheme(accentColor);
         }
+        this._setCursorColor(accentColor);
+    }
+    
+    async _setCursorColor(color) {
+        let cursor;
+        switch (color) {
+            case 'teal':
+                cursor = 'oreo_teal_cursors';
+                break;
+            case 'purple':
+                cursor = 'oreo_purple_cursors';
+                break;
+            case 'yellow':
+                cursor = 'oreo_spark_lime_cursors';
+                break;
+            case 'slate':
+                cursor = 'oreo_grey_cursors';
+                break;
+            default:
+                cursor = 'oreo_spark_'.concat(color, '_cursors');
+                break;
+        }
+        GLib.spawn_command_line_async('gsettings set org.gnome.desktop.interface cursor-theme ' + cursor);
     }
     
     async _setPapirusFolderColor(color, theme) {
@@ -268,4 +291,3 @@ export default class AccentColorExtension extends Extension {
         source.addNotification(notification);
     }
 }
-

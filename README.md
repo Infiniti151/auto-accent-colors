@@ -6,7 +6,8 @@ A GNOME extension that **automatically changes the icon theme based on the accen
 This extension is a complementary tool for the [Adwaita-colors Icons](https://github.com/dpejoh/Adwaita-colors), making your desktop experience more dynamic and visually cohesive.
 
 ## Features
-- Automatically syncs the icon theme with the current accent color.
+- Automatically syncs the icon theme with the current accent color (Supports Adwaita and Papirus icon themes).
+- Automatically syncs the cursor theme with the current accent color (Need oreo and oreo_spark themes installed).
 - Automatically detects updates of **Adwaita Icons** and notifies the users to update it.
 - *More to come...*
 
