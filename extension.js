@@ -121,43 +121,21 @@ export default class AccentColorExtension extends Extension {
         this._setCursorColor(accentColor);
     }
     
-    async _setCursorColor(color) {
-        let cursor;
-        switch (color) {
-            case 'teal':
-                cursor = 'oreo_teal_cursors';
-                break;
-            case 'purple':
-                cursor = 'oreo_purple_cursors';
-                break;
-            case 'yellow':
-                cursor = 'oreo_spark_lime_cursors';
-                break;
-            case 'slate':
-                cursor = 'oreo_grey_cursors';
-                break;
-            default:
-                cursor = 'oreo_spark_'.concat(color, '_cursors');
-                break;
-        }
-        GLib.spawn_command_line_async('gsettings set org.gnome.desktop.interface cursor-theme ' + cursor);
+    _setCursorColor(color) {
+        const cursorMap = {
+            teal: 'oreo_teal_cursors',
+            purple: 'oreo_purple_cursors',
+            yellow: 'oreo_spark_lime_cursors',
+            slate: 'oreo_grey_cursors'
+        };        
+        const cursor = cursorMap[color] || `oreo_spark_${color}_cursors`;
+        GLib.spawn_command_line_async(`gsettings set org.gnome.desktop.interface cursor-theme ${cursor}`);
     }
     
-    async _setPapirusFolderColor(color, theme) {
-        switch (color) {
-            case 'purple':
-                color = "violet";
-                break;
-             case 'slate':
-                color = "bluegrey";
-                break;
-            default:
-                break;
-        }
-        let localPath = GLib.build_filenamev([GLib.get_home_dir(), ".local", "bin", "papirus-folders"]);
-        let cmd = (GLib.file_test(localPath, GLib.FileTest.EXISTS)
-            ? localPath
-            : 'pkexec papirus-folders') + ' -C ' + color + ' -t ' + theme;
+    _setPapirusFolderColor(color, theme) {
+        const colorMap = { purple: 'violet', slate: 'bluegrey' };
+        const localPath = GLib.build_filenamev([GLib.get_home_dir(), ".local", "bin", "papirus-folders"]);
+        const cmd = `${GLib.file_test(localPath, GLib.FileTest.EXISTS) ? localPath : 'pkexec papirus-folders'} -C ${colorMap[color] || color} -t ${theme}`;
         GLib.spawn_command_line_async(cmd);
     }
 
