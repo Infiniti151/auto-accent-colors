@@ -29,7 +29,7 @@ gnome-extensions install --force "auto-adwaita-colors@celiopy.zip"
 
 ---
 ## 🔵 Papirus Icon Theme
-[Papirus Folders](https://github.com/PapirusDevelopmentTeam/papirus-folders ) is used to set the folder colors for [Papirus Icon Theme](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme)
+[Papirus Folders](https://github.com/PapirusDevelopmentTeam/papirus-folders) is used to set the folder colors for [Papirus Icon Theme](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme)
 
 ### System-wide install (Recommended):
 Icon theme: ```wget -qO- https://git.io/papirus-icon-theme-install | sh```
