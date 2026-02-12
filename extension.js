@@ -154,12 +154,11 @@ export default class AccentColorExtension extends Extension {
             default:
                 break;
         }
-        let localPathGTK = Gio.File.new_for_path(GLib.get_home_dir() + "/.icons/" + theme);
-        if(localPathGTK.query_exists(null)){
-            GLib.spawn_command_line_async('papirus-folders -C ' + color + ' -t ' + theme);
-        } else {
-            GLib.spawn_command_line_async('sudo papirus-folders -C ' + color + ' -t ' + theme);
-        }
+        let localPath = GLib.build_filenamev([GLib.get_home_dir(), ".local", "bin", "papirus-folders"]);
+        let cmd = (GLib.file_test(localPath, GLib.FileTest.EXISTS)
+            ? localPath
+            : 'pkexec papirus-folders') + ' -C ' + color + ' -t ' + theme;
+        GLib.spawn_command_line_async(cmd);
     }
 
     async _setIconTheme(color) {

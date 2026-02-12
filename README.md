@@ -7,7 +7,7 @@ This extension is a complementary tool for the [Adwaita-colors Icons](https://gi
 
 ## Features
 - Automatically syncs the icon theme with the current accent color (Supports Adwaita and Papirus icon themes).
-- Automatically syncs the cursor theme with the current accent color (Need oreo and oreo_spark themes installed).
+- Automatically syncs the cursor theme with the current accent color (Supports Oreo cursor theme).
 - Automatically detects updates of **Adwaita Icons** and notifies the users to update it.
 - *More to come...*
 
@@ -29,11 +29,45 @@ gnome-extensions install --force "auto-adwaita-colors@celiopy.zip"
 
 ---
 ## 🔵 Papirus Icon Theme
-In order to automatically change folder colors for [Papirus Icon Theme](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme):
-1. Install [Papirus Folders](https://github.com/PapirusDevelopmentTeam/papirus-folders) system-wide
+[Papirus Folders](https://github.com/PapirusDevelopmentTeam/papirus-folders ) is used to set the folder colors for [Papirus Icon Theme](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme)
 
-### If Papirus Icon Theme is installed system-wide
-Remove password requirement for ```papirus-folders``` command by adding '<YOUR_USERNAME> ALL=(ALL) NOPASSWD: /usr/bin/papirus-folders' in ```sudo visudo```
+### System-wide install (Recommended):
+Icon theme: ```wget -qO- https://git.io/papirus-icon-theme-install | sh```
+
+Papirus-folders: ```wget -qO- https://git.io/papirus-folders-install | sh```
+
+Remove password requirement for ```papirus-folders``` by adding a polkit rule:
+```
+cat <<EOF | sudo tee /etc/polkit-1/rules.d/10-papirus-folders.rules >/dev/null
+polkit.addRule(function(action, subject) {
+    if (action.id == "org.freedesktop.policykit.exec" &&
+        action.lookup("program") == "/usr/bin/papirus-folders" &&
+        subject.active == true && 
+        subject.local == true) {
+            return polkit.Result.YES;
+    }
+});
+EOF
+```
+
+### Local install:
+Icon theme: ```wget -qO- https://git.io/papirus-icon-theme-install | env DESTDIR="$HOME/.icons" sh```
+
+Papirus-folders: ```wget -qO- https://git.io/papirus-folders-install | env PREFIX=$HOME/.local sh```
+
+---
+
+## ↖️ Oreo Cursor Themes
+This extension also changes the [Oreo cursor theme](https://www.gnome-look.org/p/1360254) based on the accent color. You need to have the following cursors installed:
+1. oreo-teal-cursors
+2. oreo-purple-cursors
+3. oreo-grey-cursors
+4. oreo-spark-lime-cursors
+5. oreo-spark-orange-cursors
+6. oreo-spark-pink-cursors
+7. oreo-spark-blue-cursors
+8. oreo-spark-green-cursors
+9. oreo-spark-red-cursors
 
 ---
 
