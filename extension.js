@@ -74,8 +74,8 @@ export default class AccentColorExtension extends Extension {
         this._onAccentColorChanged();
 
         // Start the periodic update check
-        //this._startUpdateCheck();
-        //this._checkForUpdates();
+        this._startUpdateCheck();
+        this._checkForUpdates();
     }
 
     disable() {
