@@ -9,6 +9,7 @@ import { fetchLatestVersion, getVariant } from './utils.js'; // Adjust path as n
 const INTERFACE_SCHEMA = 'org.gnome.desktop.interface';
 const ACCENT_COLOR = 'accent-color';
 const ICON_THEME = 'icon-theme';
+const CURSOR_THEME = 'cursor-theme';
 const CHECK_INTERVAL = 3600; // Check every hour (in seconds)
 
 let notificationSource = null;
@@ -122,14 +123,23 @@ export default class AccentColorExtension extends Extension {
     }
     
     _setCursorColor(color) {
-        const cursorMap = {
-            teal: 'oreo_teal_cursors',
-            purple: 'oreo_purple_cursors',
+        const overrides = {
             yellow: 'oreo_spark_lime_cursors',
             slate: 'oreo_grey_cursors'
-        };        
-        const cursor = cursorMap[color] || `oreo_spark_${color}_cursors`;
-        GLib.spawn_command_line_async(`gsettings set org.gnome.desktop.interface cursor-theme ${cursor}`);
+        };
+
+        const oreoColors = new Set(['teal', 'blue', 'purple']);
+
+        let cursor;
+        if (overrides[color]) {
+            cursor = overrides[color];
+        } else if (oreoColors.has(color)) {
+            cursor = `oreo_${color}_cursors`;
+        } else {
+            cursor = `oreo_spark_${color}_cursors`;
+        }
+
+        this.settingsSchema.set_string(CURSOR_THEME, cursor);
     }
     
     _setPapirusFolderColor(color, theme) {

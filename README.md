@@ -62,10 +62,10 @@ This extension also changes the [Oreo cursor theme](https://www.gnome-look.org/p
 1. oreo-teal-cursors
 2. oreo-purple-cursors
 3. oreo-grey-cursors
-4. oreo-spark-lime-cursors
-5. oreo-spark-orange-cursors
-6. oreo-spark-pink-cursors
-7. oreo-spark-blue-cursors
+4. oreo-blue-cursors
+5. oreo-spark-lime-cursors
+6. oreo-spark-orange-cursors
+7. oreo-spark-pink-cursors
 8. oreo-spark-green-cursors
 9. oreo-spark-red-cursors
 
